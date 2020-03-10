@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: deployment-name
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        label-key : label-value  
+    spec:
+      containers:
+        - name: deployment-container-name
+          image: kaisbouchoucha/kais-demo:v1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service-label-key: service-label-value 
+  name: service-name
+spec:
+  type: ClusterIP
+  ports:
+  - name: service-port-name
+    port: 80
+    protocol: TCP
+  selector:
+    deployment-label-key: deployment-label-value
